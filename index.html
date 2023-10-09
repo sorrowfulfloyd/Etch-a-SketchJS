@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etch-a-Sketch</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <script>
+        const textbox1 = document.createElement('input');
+        textbox1.classList.add("textbox1");
+        textbox1.type = "text";
+        textbox1.value = "4";
+        textbox1.placeholder = "Number of rows";
+        document.body.appendChild(textbox1);
+
+        const textbox2 = document.createElement('input');
+        textbox2.classList.add("textbox2");
+        textbox2.type = "text";
+        textbox1.value = "16";
+        textbox2.placeholder = "Number of boxes";
+        document.body.appendChild(textbox2);
+
+        const button = document.createElement('button');
+        button.innerText = "Generate";
+        button.setAttribute("onclick", "reShuffle()");
+        document.body.appendChild(button);
+
+        const container = document.createElement('div')
+        container.classList.add('container');
+        document.body.appendChild(container);
+
+        function createDivs(times) {
+            for (let i = 1; i <= times; i++) {
+                const div = document.createElement("div");
+                div.style.cssText = 'padding: 1px; margin: auto; text-align: center; width: 100px; height: 100px; background-color: black; color: white'
+                div.innerHTML = `Box #${i}`;
+
+                div.addEventListener("mouseover", (event) => {
+                    event.target.style.backgroundColor = "blue";
+
+                    setTimeout((() => {
+                        event.target.style.backgroundColor = "black";
+                    }), 1000)
+                })
+                container.appendChild(div);
+            }
+        }
+
+        function reShuffle() {
+            while (container.firstChild) {
+                container.removeChild(container.lastChild);
+            }
+            container.style.cssText = `display: grid; grid-template-columns: repeat(${textbox1.value}, 1fr); grid-gap: 0px; float: left;`;
+            createDivs(textbox2.value);
+        };
+
+    </script>
+</body>
+
+</html>
